@@ -1,2 +1,3 @@
-# capsynth
-Video captioning website built using MERN and OpenCV.
+# CapSynth
+
+Video captioning website built using MERN stack and OpenCV.
