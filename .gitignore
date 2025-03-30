@@ -1,0 +1,15 @@
+node_modules/
+npm-debug.log
+
+__pycache__/
+*.pyc
+venv/
+*.env
+
+server/uploads/*
+!server/uploads/.gitkeep  # Keep empty folder structure
+
+.vscode/
+.idea/
+
+data/
