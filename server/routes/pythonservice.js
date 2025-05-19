@@ -1,13 +1,21 @@
 const { spawn } = require("child_process");
-const runScript = (videopath) => {
+
+function generateCaptions(videoPath) {
   return new Promise((resolve, reject) => {
     const python = spawn("python", [
-      "./python-service/generatecaptions.py",
-      videopath,
+      "../python-service/generate_captions.py",
+      videoPath,
     ]);
-    python.stdout.on("data", (data) => resolve(data.toString()));
-    python.stderr.on("data", (err) => reject(err.toString()));
-  });
-};
+    let captions = "";
 
-module.exports = { runScript };
+    python.stdout.on("data", (data) => (captions += data.toString()));
+    python.stderr.on("data", (err) => console.error(`Python error: ${err}`));
+
+    python.on("close", (code) => {
+      if (code === 0) resolve(captions.trim());
+      else reject(new Error(`Python process exited with code ${code}`));
+    });
+  });
+}
+
+module.exports = { generateCaptions };
