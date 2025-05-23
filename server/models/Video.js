@@ -8,5 +8,6 @@ const Videoschema = new mongoose.Schema({
     type: [Number],
     index: true,
   },
+  description: String,
 });
 module.exports = mongoose.model("Video", Videoschema);
