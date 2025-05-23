@@ -1,21 +1,45 @@
 const { spawn } = require("child_process");
+const path = require("path");
+const Video = require("../models/Video");
 
-function generateCaptions(videoPath) {
-  return new Promise((resolve, reject) => {
-    const python = spawn("python", [
-      "../python-service/generate_captions.py",
-      videoPath,
-    ]);
-    let captions = "";
+function runPythonScript(videoPath, videoId) {
+  const python = spawn("python", [
+    path.join(__dirname, "../../python-service/generate_captions.py"),
+    videoPath,
+  ]);
 
-    python.stdout.on("data", (data) => (captions += data.toString()));
-    python.stderr.on("data", (err) => console.error(`Python error: ${err}`));
+  let captions = "";
 
-    python.on("close", (code) => {
-      if (code === 0) resolve(captions.trim());
-      else reject(new Error(`Python process exited with code ${code}`));
-    });
+  python.stdout.on("data", (data) => {
+    captions += data.toString();
+  });
+
+  python.stderr.on("data", (err) => {
+    console.error(`Python error: ${err}`);
+  });
+
+  python.on("close", async (code) => {
+    if (code === 0) {
+      const embedPy = spawn("python", [
+        path.join(__dirname, "../../python-service/captionembedder.py"),
+        captions.trim(),
+      ]);
+      let embedding = "";
+      embedPy.stdout.on("data", (data) => {
+        embedding += data.toString();
+      });
+      embedPy.on("close", async () => {
+        const embedVector = embedding.split(",").map(Number);
+        await Video.findByIdAndUpdate(videoId, {
+          status: "completed",
+          captions: captions.trim(),
+          embedding: embedVector,
+        });
+      });
+    } else {
+      await Video.findByIdAndUpdate(videoId, { status: "failed" });
+    }
   });
 }
 
-module.exports = { generateCaptions };
+module.exports = { runPythonScript };

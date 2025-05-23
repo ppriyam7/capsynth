@@ -32,3 +32,46 @@ exports.getCaptions = async (req, res, next) => {
     next(err);
   }
 };
+
+const { spawn } = require("child_process");
+exports.searchCaptions = async (req, res, next) => {
+  try {
+    const query = req.body.query;
+    const embedPy = spawn("python", [
+      path.join(__dirname, "../../python-service/captionembedder.py"),
+      query,
+    ]);
+    let vectorStr = "";
+    embedPy.stdout.on("data", (data) => {
+      vectorStr += data.toString();
+    });
+    embedPy.on("close", async () => {
+      const queryVector = vectorStr.split(",").map(Number);
+      const allVideos = await Video.find({ embedding: { $exists: true } });
+    });
+    const cosine = (a, b) => {
+      const dot = a.reduce((sum, v, i) => sum + v * b[i], 0);
+      const normA = Math.sqrt(a.reduce((sum, v) => sum + v * v, 0));
+      const normB = Math.sqrt(b.reduce((sum, v) => sum + v * v, 0));
+      return dot / (normA * normB);
+    };
+    const results = allVideos
+      .map((video) => ({
+        video,
+        similarity: cosine(queryVector, video.embedding),
+      }))
+      .sort((a, b) => b.similarity - a.similarity)
+      .slice(0, 5);
+    res.json({
+      query,
+      results: results.map((r) => ({
+        id: r.video._id,
+        fileName: r.video.fileName,
+        captions: r.video.captions,
+        similarity: r.similarity.toFixed(3),
+      })),
+    });
+  } catch (err) {
+    next(err);
+  }
+};
