@@ -3,7 +3,7 @@ const cors = require("cors");
 const multer = require("multer");
 const http = require("http");
 const socketIo = require("socket.io");
-const apiRoutes = require("./routes/api");
+const apiRoutes = require("./api");
 const mongoose = require("mongoose");
 const path = require("path");
 require("dotenv").config();

@@ -2,7 +2,7 @@ const {
   uploadVideo,
   getCaptions,
   searchCaptions,
-} = require("../controllers/videoController");
+} = require("../controller/videoController");
 exports.handleUpload = uploadVideo;
 exports.getCaptions = getCaptions;
 exports.searchCaptions = searchCaptions;
