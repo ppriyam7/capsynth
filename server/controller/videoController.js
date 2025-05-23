@@ -27,6 +27,7 @@ exports.getCaptions = async (req, res, next) => {
     res.json({
       status: video.status,
       captions: video.captions || null,
+      description: video.description || null,
     });
   } catch (err) {
     next(err);

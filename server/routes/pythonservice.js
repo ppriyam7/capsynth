@@ -24,10 +24,16 @@ function runPythonScript(videoPath, videoId) {
         path.join(__dirname, "../../python-service/captionembedder.py"),
         captions.trim(),
       ]);
+      const summarizePy = spawn("python", [
+        path.join(__dirname, "../../python-service/summarizecaption.py"),
+        captions.trim(),
+      ]);
       let embedding = "";
+      let description = "";
       embedPy.stdout.on("data", (data) => {
         embedding += data.toString();
       });
+      summarizePy.stdout.on("data", (data) => (description += data.toString()));
       embedPy.on("close", async () => {
         const embedVector = embedding.split(",").map(Number);
         await Video.findByIdAndUpdate(videoId, {
