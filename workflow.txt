@@ -1,0 +1,228 @@
+# CapSynth - AI Captioning Platform Project Structure
+
+```
+capsynth/
+├── README.md
+├── package.json
+├── .gitignore
+├── .env.example
+├── .env.local
+├── vite.config.js
+├── tailwind.config.js
+├── postcss.config.js
+├── index.html
+├── public/
+│   ├── favicon.ico
+│   ├── logo192.png
+│   ├── logo512.png
+│   ├── manifest.json
+│   └── assets/
+│       ├── images/
+│       ├── icons/
+│       └── videos/
+├── src/
+│   ├── main.jsx
+│   ├── App.jsx
+│   ├── index.css
+│   ├── components/
+│   │   ├── CallToAction.jsx
+│   │   ├── CallToActionGradient.jsx
+│   │   ├── DashboardContainer.jsx
+│   │   ├── DashPosts.jsx
+│   │   ├── DashProfile.jsx
+│   │   ├── DashSidebar.jsx
+│   │   ├── DashUsers.jsx
+│   │   ├── Footer.jsx
+│   │   ├── Header.jsx
+│   │   ├── OAuth.jsx
+│   │   ├── OnlyAdminPrivateRoute.jsx
+│   │   ├── PostCard.jsx
+│   │   ├── PrivateRoute.jsx
+│   │   ├── ScrollToTop.jsx
+│   │   ├── ThemeProvider.jsx
+│   │   └── captioning/
+│   │       ├── CaptionEditor.jsx
+│   │       ├── CaptionTimeline.jsx
+│   │       ├── LiveCaptioning.jsx
+│   │       ├── CaptionExport.jsx
+│   │       ├── CaptionPreview.jsx
+│   │       └── CaptionSettings.jsx
+│   │   └── upload/
+│   │       ├── UploadContainer.jsx
+│   │       ├── DragDropZone.jsx
+│   │       ├── FilePreview.jsx
+│   │       ├── UploadProgress.jsx
+│   │       └── BatchUpload.jsx
+│   │   └── search/
+│   │       ├── SemanticSearch.jsx
+│   │       ├── SearchResults.jsx
+│   │       ├── SearchFilters.jsx
+│   │       └── SearchHistory.jsx
+│   │   └── video/
+│   │       ├── VideoPlayer.jsx
+│   │       ├── VideoControls.jsx
+│   │       ├── VideoThumbnail.jsx
+│   │       └── VideoMetadata.jsx
+│   │   └── ai/
+│   │       ├── SummaryGenerator.jsx
+│   │       ├── TranscriptionViewer.jsx
+│   │       ├── LanguageSelector.jsx
+│   │       └── AccuracyMeter.jsx
+│   │   └── ui/
+│   │       ├── Button.jsx
+│   │       ├── Input.jsx
+│   │       ├── Modal.jsx
+│   │       ├── Dropdown.jsx
+│   │       ├── Tooltip.jsx
+│   │       ├── Badge.jsx
+│   │       ├── Card.jsx
+│   │       ├── Tabs.jsx
+│   │       ├── Progress.jsx
+│   │       ├── Alert.jsx
+│   │       └── Skeleton.jsx
+│   ├── pages/
+│   │   ├── About.jsx
+│   │   ├── CreatePost.jsx
+│   │   ├── Dashboard.jsx
+│   │   ├── Home.jsx
+│   │   ├── PostPage.jsx
+│   │   ├── projects.jsx
+│   │   ├── Search.jsx
+│   │   ├── Signin.jsx
+│   │   ├── Signup.jsx
+│   │   ├── UpdatePost.jsx
+│   │   ├── Profile.jsx
+│   │   ├── Settings.jsx
+│   │   ├── Pricing.jsx
+│   │   ├── Contact.jsx
+│   │   ├── Help.jsx
+│   │   ├── Privacy.jsx
+│   │   ├── Terms.jsx
+│   │   └── NotFound.jsx
+│   ├── hooks/
+│   │   ├── useAuth.js
+│   │   ├── useLocalStorage.js
+│   │   ├── useDebounce.js
+│   │   ├── useUpload.js
+│   │   ├── useCaptioning.js
+│   │   ├── useSearch.js
+│   │   ├── useWebSocket.js
+│   │   ├── useVideoPlayer.js
+│   │   ├── useTranscription.js
+│   │   └── useSummary.js
+│   ├── context/
+│   │   ├── AuthContext.jsx
+│   │   ├── ThemeContext.jsx
+│   │   ├── UploadContext.jsx
+│   │   ├── CaptioningContext.jsx
+│   │   └── SearchContext.jsx
+│   ├── services/
+│   │   ├── api/
+│   │   │   ├── index.js
+│   │   │   ├── auth.js
+│   │   │   ├── users.js
+│   │   │   ├── posts.js
+│   │   │   ├── upload.js
+│   │   │   ├── captioning.js
+│   │   │   ├── search.js
+│   │   │   ├── transcription.js
+│   │   │   └── analytics.js
+│   │   ├── ai/
+│   │   │   ├── captionService.js
+│   │   │   ├── summaryService.js
+│   │   │   ├── searchService.js
+│   │   │   ├── transcriptionService.js
+│   │   │   └── languageDetection.js
+│   │   ├── storage/
+│   │   │   ├── cloudStorage.js
+│   │   │   ├── localCache.js
+│   │   │   └── fileProcessor.js
+│   │   └── websocket/
+│   │       ├── socketService.js
+│   │       └── liveCaptioning.js
+│   ├── utils/
+│   │   ├── constants.js
+│   │   ├── helpers.js
+│   │   ├── validators.js
+│   │   ├── formatters.js
+│   │   ├── errorHandlers.js
+│   │   ├── permissions.js
+│   │   ├── videoUtils.js
+│   │   ├── captionUtils.js
+│   │   ├── exportUtils.js
+│   │   └── timeUtils.js
+│   ├── store/
+│   │   ├── index.js
+│   │   ├── slices/
+│   │   │   ├── authSlice.js
+│   │   │   ├── userSlice.js
+│   │   │   ├── postsSlice.js
+│   │   │   ├── uploadSlice.js
+│   │   │   ├── captioningSlice.js
+│   │   │   ├── searchSlice.js
+│   │   │   ├── transcriptionSlice.js
+│   │   │   └── uiSlice.js
+│   │   └── middleware/
+│   │       ├── apiMiddleware.js
+│   │       └── errorMiddleware.js
+│   ├── styles/
+│   │   ├── globals.css
+│   │   ├── components.css
+│   │   ├── themes.css
+│   │   └── animations.css
+│   └── assets/
+│       ├── fonts/
+│       ├── images/
+│       │   ├── logos/
+│       │   ├── backgrounds/
+│       │   ├── illustrations/
+│       │   └── placeholders/
+│       ├── icons/
+│       └── videos/
+├── server/ (Backend API)
+│   ├── package.json
+│   ├── server.js
+│   ├── config/
+│   │   ├── database.js
+│   │   ├── cloudinary.js
+│   │   ├── jwt.js
+│   │   ├── cors.js
+│   │   └── ai.js
+│   ├── models/
+│   │   ├── User.js
+│   │   ├── Post.js
+│   │   ├── Video.js
+│   │   ├── Caption.js
+│   │   ├── Project.js
+│   │   ├── Transcription.js
+│   │   └── Summary.js
+│   ├── routes/
+│   │   ├── auth.js
+│   │   ├── users.js
+│   │   ├── posts.js
+│   │   ├── upload.js
+│   │   ├── captioning.js
+│   │   ├── search.js
+│   │   ├── transcription.js
+│   │   ├── summary.js
+│   │   └── analytics.js
+│   ├── controllers/
+│   │   ├── authController.js
+│   │   ├── userController.js
+│   │   ├── postController.js
+│   │   ├── uploadController.js
+│   │   ├── captioningController.js
+│   │   ├── searchController.js
+│   │   ├── transcriptionController.js
+│   │   └── summaryController.js
+│   ├── middleware/
+│   │   ├── auth.js
+│   │   ├── validation.js
+│   │   ├── upload.js
+│   │   ├── rateLimit.js
+│   │   └── errorHandler.js
+│   ├── services/
+│   │   ├── aiService.js
+│   │   ├── transcriptionService.js
+│   │   ├── summaryService.js
+│
