@@ -1,17 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Upload from "./components/Upload";
-import VideoList from "./components/VideoList";
-import Search from "./components/Search";
-import LiveCaption from "./components/LiveCaption";
-
+// import Upload from "./components/Upload";
+// import VideoList from "./components/VideoList";
+// import Search from "./components/Search";
+// import LiveCaption from "./components/LiveCaption";
+import 
 export default function App() {
   return (
     <Router>
       <div className="p-4">
-        <h1 className="text-3xl font-bold mb-4">AI Captioning Dashboard</h1>
+        <h1 className="text-3xl font-bold mb-4">CapSynth</h1>
         <nav className="mb-4 space-x-4">
-          <Link to="/upload" className="text-blue-500">
+          <Link to="/" className="text-blue-500">
             Upload
           </Link>
           <Link to="/videos" className="text-blue-500">
