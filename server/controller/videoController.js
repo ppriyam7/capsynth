@@ -1,9 +1,11 @@
+const path = require("path");
 const Video = require("../models/Video");
 const { runPythonScript } = require("../routes/pythonservice");
+// const { spawn } = require("child_process");
 
 exports.uploadVideo = async (req, res, next) => {
   try {
-    if (!req.field) throw new Error("No file uploaded!");
+    if (!req.file) throw new Error("No file uploaded!");
     const video = new Video({
       fileName: req.file.fileName,
       path: req.file.path,
